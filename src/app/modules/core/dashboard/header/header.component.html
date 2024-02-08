@@ -1,0 +1,23 @@
+
+<div class="header">
+    <div class="header__content">
+        <div class="header__content--menu">
+    <h1 class="title">Clima</h1>
+  
+    <p-button
+    label="Inicio"
+    [loading]="loading"
+    [text]="true"
+    severity="info"
+    (onClick)="inicio()"
+  ></p-button>
+</div>
+    <p-button
+      label="Salir"
+      [loading]="loading"
+      [outlined]="true"
+      severity="danger"
+      (onClick)="cerrar()"
+    ></p-button>
+    </div>
+  </div>

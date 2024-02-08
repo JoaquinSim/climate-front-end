@@ -1,0 +1,30 @@
+<div class="main">
+  <p-button
+    id="back"
+    label=" &lt; Regresar"
+    [link]="true"
+    (click)="back()"
+  ></p-button>
+  <div class="photo">
+    <img src="https://cdn-icons-png.flaticon.com/512/6183/6183015.png" alt="" />
+  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="card">
+      <h1>Login</h1>
+      <div class="field">
+        <label for="email">Email:</label><br />
+        <input pInputText id="email" formControlName="email" class="w-20rem" />
+      </div>
+      <div class="field">
+        <label for="password">Contraseña:</label><br />
+        <p-password
+          id="password"
+          formControlName="password"
+          [feedback]="false"
+          [maxLength]="9"
+        ></p-password>
+      </div>
+      <p-button label="Entrar" [loading]="loading" (click)="onSubmit()"></p-button>
+    </div>
+  </form>
+</div>

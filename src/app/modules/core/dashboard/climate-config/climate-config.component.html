@@ -1,0 +1,181 @@
+<app-header></app-header>
+<div class="main">
+  <div>
+    <p-tabView>
+      <p-tabPanel header="Quio">
+        <div class="tab">
+          <p-table [value]="climateQ" class="climate">
+            <ng-template pTemplate="header" id="header">
+              <tr>
+                <th>
+                  <p-button
+                    (click)="crear(climateQ)"
+                    icon="pi pi-plus"
+                    severity="success"
+                  ></p-button>
+                </th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Temperatura</th>
+                <th>Humedad</th>
+                <th>Presion atmosferica</th>
+                <th>Velocidad del viento</th>
+                <th>Acciones</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td></td>
+                <td>{{ item.time.substr(0, 10) }}</td>
+                <td>{{ item.time.substr(11, 8) }}</td>
+                <td>{{ item.temperature }} C°</td>
+                <td>{{ item.humidity }} %</td>
+                <td>{{ item.pressure }} mb</td>
+                <td>{{ item.velocity }} m/s</td>
+                <td>
+                  <p-button
+                    severity="danger"
+                    icon="pi pi-trash"
+                    (click)="deleteClimate(item.id)"
+                  ></p-button>
+                  <p-button
+                    severity="info"
+                    icon="pi pi-pencil"
+                    (click)="updateClimate(item.id)"
+                  ></p-button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <p-table [value]="climatesQ" class="temp">
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td>{{ item.name }}</td>
+                <td>
+                  {{ item.main.temp - 273.15 }} C°
+                  <span icon="pi-plus"></span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Cuenca">
+        <div class="tab">
+          <p-table [value]="climateC" class="climate">
+            <ng-template pTemplate="header" id="header">
+              <tr>
+                <th>
+                  <p-button
+                    (click)="crear(climateC)"
+                    icon="pi pi-plus"
+                    severity="success"
+                  ></p-button>
+                </th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Temperatura</th>
+                <th>Humedad</th>
+                <th>Presion atmosferica</th>
+                <th>Velocidad del viento</th>
+                <th>Acciones</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td></td>
+                <td>{{ item.time.substr(0, 10) }}</td>
+                <td>{{ item.time.substr(11, 8) }}</td>
+                <td>{{ item.temperature }} C°</td>
+                <td>{{ item.humidity }} %</td>
+                <td>{{ item.pressure }} mb</td>
+                <td>{{ item.velocity }} m/s</td>
+                <td>
+                  <p-button
+                    severity="danger"
+                    icon="pi pi-trash"
+                    (click)="deleteClimate(item.id)"
+                  ></p-button>
+                  <p-button
+                    severity="info"
+                    icon="pi pi-pencil"
+                    (click)="updateClimate(item.id)"
+                  ></p-button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <p-table [value]="climatesC" class="temp">
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td>{{ item.name }}</td>
+                <td>
+                  {{ item.main.temp - 273.15 }} C°
+                  <span icon="pi-plus"></span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Guayaquil">
+        <div class="tab">
+          <p-table [value]="climateY" class="climate">
+            <ng-template pTemplate="header" id="header">
+              <tr>
+                <th>
+                  <p-button
+                    (click)="crear(climateY)"
+                    icon="pi pi-plus"
+                    severity="success"
+                  ></p-button>
+                </th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Temperatura</th>
+                <th>Humedad</th>
+                <th>Presion atmosferica</th>
+                <th>Velocidad del viento</th>
+                <th>Acciones</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td></td>
+                <td>{{ item.time.substr(0, 10) }}</td>
+                <td>{{ item.time.substr(11, 8) }}</td>
+                <td>{{ item.temperature }} C°</td>
+                <td>{{ item.humidity }} %</td>
+                <td>{{ item.pressure }} mb</td>
+                <td>{{ item.velocity }} m/s</td>
+                <td>
+                  <p-button
+                    severity="danger"
+                    icon="pi pi-trash"
+                    (click)="deleteClimate(item.id)"
+                  ></p-button>
+                  <p-button
+                    severity="info"
+                    icon="pi pi-pencil"
+                    (click)="updateClimate(item.id)"
+                  ></p-button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <p-table [value]="climatesY" class="temp">
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td>{{ item.name }}</td>
+                <td>
+                  {{ item.main.temp - 273.15 }} C°
+                  <span icon="pi-plus"></span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

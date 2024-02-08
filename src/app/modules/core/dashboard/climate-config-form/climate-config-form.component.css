@@ -1,0 +1,29 @@
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 90vh;
+}
+
+.tabla{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 35rem;
+}
+
+.field{
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons{
+    display: flex;
+    justify-content: flex-end;
+}
+
+p-button{
+    margin-right: 5px;
+}

@@ -1,0 +1,92 @@
+<app-header></app-header>
+<main>
+  <div class="main">
+    <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <p-card header="Clima">
+        <div class="tabla">
+          <div class="field">
+            <label for="city">Nombre de la ciudad:</label>
+            <input
+              pInputText
+              id="city"
+              formControlName="city"
+            />
+          </div>
+
+          <div class="field">
+            <label for="temperature">Temperatura:</label>
+            <p-inputNumber
+              formControlName="temperature"
+              [showButtons]="true"
+              inputId="locale-user" 
+              [minFractionDigits]="2"           
+            >
+            </p-inputNumber>
+          </div>
+
+          <div class="field">
+            <label for="humidity">Porcentaje de humedad:</label>
+            <p-inputNumber
+              formControlName="humidity"
+              [showButtons]="true"
+              inputId="locale-user"
+              [minFractionDigits]="2"
+            >
+            </p-inputNumber>
+          </div>
+
+          <div class="field">
+            <label for="velocity">Velocidad del viento:</label>
+            <p-inputNumber
+              formControlName="velocity"
+              [showButtons]="true"
+              inputId="locale-user"
+              [minFractionDigits]="2"
+            >
+            </p-inputNumber>
+          </div>
+
+          <div class="field">
+            <label for="pressure">Presion atmosferica:</label>
+            <p-inputNumber
+              formControlName="pressure"
+              [showButtons]="true"
+              inputId="locale-user"
+              [minFractionDigits]="2"
+            >
+            </p-inputNumber>
+          </div>
+
+          <div class="buttons">
+            <p-button
+              label="Submit"
+              (click)="onSubmit()"
+              severity="success"
+              id="lote"
+            ></p-button>
+            <p-button
+              label="Cancelar"
+              (click)="close()"
+              severity="warning"
+            ></p-button>
+          </div>
+        </div>
+      </p-card>
+    </form>
+    <p-table [value]="climates">
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ time }}</td>
+          <td>
+            <p-button
+              label="Tomar datos automaticamente"
+              severity="warning"
+              (click)="takeData(item)"
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</main>

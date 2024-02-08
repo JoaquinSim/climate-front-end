@@ -1,0 +1,247 @@
+<div class="header">
+  <div class="header__content">
+    <div class="header__content--menu">
+      <h1 class="title">Clima</h1>
+
+      <p-button
+        [disabled]="access"
+        label="Dashboard"
+        [text]="true"
+        severity="info"
+        (click)="inicio()"
+      ></p-button>
+    </div>
+
+    <p-button
+      id="login"
+      (click)="login()"
+      [outlined]="true"
+      severity="secondary"
+      [disabled]="!access"
+    >
+      Ingresar
+    </p-button>
+  </div>
+</div>
+
+<div class="main">
+  <p-tabView>
+    <p-tabPanel header="Quito">
+      <p-tabView>
+        <p-tabPanel header="Historico">
+          <div>
+            <div class="main__history">
+              <canvasjs-chart [options]="tempQOptions"></canvasjs-chart>
+              <p-divider></p-divider>
+            </div>
+            <p-divider></p-divider>
+            <div class="main__history">
+              <canvasjs-chart [options]="rainQOptions"></canvasjs-chart>
+            </div>
+            <p-divider></p-divider>
+            <div class="main__history">
+              <canvasjs-chart [options]="humidityQOptions"></canvasjs-chart>
+            </div>
+            <p-divider></p-divider>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Hoy">
+          <p>
+            {{ day }}<span> {{ dia }}</span>
+          </p>
+          <div class="card flex justify-content-center">
+            <p-card [style]="{ width: '30rem' }">
+              <ng-template pTemplate="header">
+                  <img alt="Card" src="https://images.vexels.com/media/users/3/205087/isolated/preview/a41d84a485d960a7d929fd95ece1acf1-icono-de-trazo-de-clima.png" />
+              </ng-template>
+              <ng-template pTemplate="body">
+                <p-accordion [multiple]="true" [activeIndex]="[0]">
+                  <p-accordionTab header="Temperatura C°">
+                    {{ climatesQ.main.temp - 273.15 }} C°
+                  </p-accordionTab>
+                  <p-accordionTab header="Precipitacion mm">
+                    {{ climatesQ.rain | json }} mm
+                  </p-accordionTab>
+                  <p-accordionTab header="Humedad %">
+                    {{ climatesQ.main.humidity }} %
+                  </p-accordionTab>
+                </p-accordion>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                  <p-button icon="pi pi-download" (click)="saveClimate(climatesQ.name, 'climatesQ')"></p-button>
+              </ng-template>
+          </p-card>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Pronostico">
+          <p>
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui
+            blanditiis praesentium voluptatum deleniti atque corrupti quos
+            dolores et quas molestias excepturi sint occaecati cupiditate non
+            provident, similique sunt in culpa qui officia deserunt mollitia
+            animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis
+            est et expedita distinctio. Nam libero tempore, cum soluta nobis est
+            eligendi optio cumque nihil impedit quo minus.
+          </p>
+        </p-tabPanel>
+      </p-tabView>
+    </p-tabPanel>
+    <p-tabPanel header="Guayaquil">
+      <p-tabView>
+        <p-tabPanel header="Historico">
+          <div>
+            <div class="main__history">
+              <canvasjs-chart [options]="tempGOptions"></canvasjs-chart>
+            </div>
+            <p-divider type="solid"></p-divider>
+            <div class="main__history">
+              <canvasjs-chart [options]="rainGOptions"></canvasjs-chart>
+            </div>
+            <p-divider type="solid"></p-divider>
+            <div class="main__history">
+              <canvasjs-chart [options]="humidityGOptions"></canvasjs-chart>
+            </div>
+            <p-divider type="solid"></p-divider>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Hoy">
+          <p>
+            {{ day }}<span> {{ dia }}</span>
+          </p>
+          <div class="card flex justify-content-center">
+            <p-card [style]="{ width: '30rem' }">
+              <ng-template pTemplate="header">
+                  <img alt="Card" src="https://images.vexels.com/media/users/3/205087/isolated/preview/a41d84a485d960a7d929fd95ece1acf1-icono-de-trazo-de-clima.png" />
+              </ng-template>
+              <ng-template pTemplate="body">
+                <p-accordion [multiple]="true" [activeIndex]="[0]">
+                  <p-accordionTab header="Temperatura C°">
+                    {{ climatesG.main.temp - 273.15 }} C°
+                  </p-accordionTab>
+                  <p-accordionTab header="Precipitacion mm">
+                    {{ climatesG.rain | json }} mm
+                  </p-accordionTab>
+                  <p-accordionTab header="Humedad %">
+                    {{ climatesG.main.humidity }} %
+                  </p-accordionTab>
+                </p-accordion>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                  <p-button icon="pi pi-download"></p-button>
+              </ng-template>
+          </p-card>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Pronostico">
+          <p>
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui
+            blanditiis praesentium voluptatum deleniti atque corrupti quos
+            dolores et quas molestias excepturi sint occaecati cupiditate non
+            provident, similique sunt in culpa qui officia deserunt mollitia
+            animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis
+            est et expedita distinctio. Nam libero tempore, cum soluta nobis est
+            eligendi optio cumque nihil impedit quo minus.
+          </p>
+        </p-tabPanel>
+      </p-tabView>
+    </p-tabPanel>
+    <p-tabPanel header="Cuenca">
+      <p-tabView>
+        <p-tabPanel header="Historico">
+          <div>
+            <div class="main__history">
+              <canvasjs-chart [options]="tempCOptions"></canvasjs-chart>
+            </div><br>
+            <p-divider type="solid"></p-divider>
+            <div class="main__history">
+              <canvasjs-chart [options]="rainCOptions"></canvasjs-chart>
+            </div>
+            <p-divider type="solid"></p-divider>
+            <div class="main__history">
+              <canvasjs-chart [options]="humidityCOptions"></canvasjs-chart>
+            </div>
+            <p-divider type="solid"></p-divider>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Hoy">
+          <p>
+            {{ day }}<span> {{ dia }}</span>
+          </p>
+          <div class="card flex justify-content-center">
+            <p-card [style]="{ width: '30rem' }">
+              <ng-template pTemplate="header">
+                  <img alt="Card" src="https://images.vexels.com/media/users/3/205087/isolated/preview/a41d84a485d960a7d929fd95ece1acf1-icono-de-trazo-de-clima.png" />
+              </ng-template>
+              <ng-template pTemplate="body">
+                <p-accordion [multiple]="true" [activeIndex]="[0]">
+                  <p-accordionTab header="Temperatura C°">
+                    {{ climatesC.main.temp - 273.15 }} C°
+                  </p-accordionTab>
+                  <p-accordionTab header="Precipitacion mm">
+                    {{ climatesC.rain | json }} mm
+                  </p-accordionTab>
+                  <p-accordionTab header="Humedad %">
+                    {{ climatesC.main.humidity }} %
+                  </p-accordionTab>
+                </p-accordion>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                  <p-button icon="pi pi-download" (click)="saveClimate(climatesC.name, 'climatesQ')"></p-button>
+              </ng-template>
+          </p-card>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Pronostico">
+          <p>
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui
+            blanditiis praesentium voluptatum deleniti atque corrupti quos
+            dolores et quas molestias excepturi sint occaecati cupiditate non
+            provident, similique sunt in culpa qui officia deserunt mollitia
+            animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis
+            est et expedita distinctio. Nam libero tempore, cum soluta nobis est
+            eligendi optio cumque nihil impedit quo minus.
+          </p>
+        </p-tabPanel>
+      </p-tabView>
+    </p-tabPanel>
+    <!-- <p-tabPanel header="Manta"> 
+      <p-tabView>
+        <p-tabPanel header="Historico">
+          <div>
+            <div class="main__history">
+              <canvasjs-chart [options]="tempOptions"></canvasjs-chart>
+            </div>
+            <div class="main__history">
+              <canvasjs-chart [options]="rainOptions"></canvasjs-chart>
+            </div>
+            <div class="main__history">
+              <canvasjs-chart [options]="humidityOptions"></canvasjs-chart>
+            </div>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Hoy">
+          <p>
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+            quae ab illo inventore veritatis et quasi architecto beatae vitae
+            dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+            eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci
+            velit, sed quia non numquam eius modi.
+          </p>
+        </p-tabPanel>
+        <p-tabPanel header="Pronostico">
+          <p>
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui
+            blanditiis praesentium voluptatum deleniti atque corrupti quos
+            dolores et quas molestias excepturi sint occaecati cupiditate non
+            provident, similique sunt in culpa qui officia deserunt mollitia
+            animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis
+            est et expedita distinctio. Nam libero tempore, cum soluta nobis est
+            eligendi optio cumque nihil impedit quo minus.
+          </p>
+        </p-tabPanel>
+      </p-tabView>
+    </p-tabPanel> -->
+  </p-tabView>
+</div>

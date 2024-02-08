@@ -1,0 +1,26 @@
+.main {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: row;
+}
+.climate{
+    display: block;
+    height: 75vh;
+    width: 100%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+.tab{
+    display: flex;
+    justify-content: space-between;
+}
+.temp{
+    background-color: red;
+    position: absolute;
+    right: 25px;
+}
+#header{
+    background-color: red;
+}
