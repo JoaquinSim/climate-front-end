@@ -126,4 +126,8 @@ export class ClimateConfigComponent {
     });
     this.router.navigate(['dashboard/climate-form']);
   }
+
+  save(file:string){
+    this.climateService.pdfTake('Tomas meteorologicas')
+  }
 }

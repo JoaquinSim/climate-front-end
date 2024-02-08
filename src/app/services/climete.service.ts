@@ -11,6 +11,7 @@ import { ClimateModel, UpdateClimateDto } from '../models/climate.model';
 export class ClimateService {
   URL: string = 'http://127.0.0.1:3000/api/v1/climate';
   PDF: string = 'http://127.0.0.1:3000/api/v1/pdf';
+  TAKES: string = 'http://127.0.0.1:3000/api/v1/pdf'
   constructor(private readonly httpClient: HttpClient) {}
 
   create(payload: ClimateModel): Observable<ClimateModel> {
@@ -62,6 +63,22 @@ export class ClimateService {
 
   pdf(city: string, file:string) {
     const url = `${this.PDF}/${city}`;
+
+    this.httpClient.get<BlobPart>(url, {responseType: 'blob' as 'json'})
+      .subscribe(response => {
+        const filePath = URL.createObjectURL(new Blob([response], {type: 'application/pdf'}));
+        //const filePath = URL.createObjectURL(new Blob([response]));
+        const downloadLink = document.createElement('a');
+        downloadLink.href = filePath;
+        console.log(filePath)
+        downloadLink.setAttribute('download', file);
+        document.body.appendChild(downloadLink,);
+        downloadLink.click();
+      });
+  }
+
+  pdfTake(file:string) {
+    const url = `${this.TAKES}`;
 
     this.httpClient.get<BlobPart>(url, {responseType: 'blob' as 'json'})
       .subscribe(response => {

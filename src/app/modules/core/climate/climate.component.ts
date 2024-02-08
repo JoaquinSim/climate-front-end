@@ -514,6 +514,6 @@ export class ClimateComponent {
   }
 
   saveClimate(city:string, file:string){
-    this.climateService.pdf(city, 'Clima')
+    this.climateService.pdf(city, 'Clima actual')
   }
 }
