@@ -207,7 +207,7 @@ export class ClimateComponent {
               },
             ],
             title: {
-              text: `Historico Presipitaciones mes de ${month}`,
+              text: `Historico precipitación mes de ${month}`,
             },
           };
         }
