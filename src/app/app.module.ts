@@ -20,6 +20,8 @@ import { HeaderComponent } from './modules/core/dashboard/header/header.componen
 import { TabViewModule } from 'primeng/tabview';
 import { AccordionModule } from 'primeng/accordion';
 import { DividerModule } from 'primeng/divider';
+import { DropdownModule } from 'primeng/dropdown';
+import { ListboxModule } from 'primeng/listbox';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { DividerModule } from 'primeng/divider';
     CanvasJSAngularChartsModule,
     TabViewModule,
     AccordionModule,
-    DividerModule
+    DividerModule,
+    DropdownModule,
+    ListboxModule
   ],
   providers: [],
   bootstrap: [AppComponent],

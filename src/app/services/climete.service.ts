@@ -92,6 +92,19 @@ export class ClimateService {
         downloadLink.click();
       });
   }
+
+  getCities(){
+    var payload = {
+      "country": "ecuador"
+    }
+    const url = 'https://countriesnow.space/api/v0.1/countries/cities'
+
+    return this.httpClient.post<any>(url, payload).pipe(
+      map((response) => {
+        return response.data;
+      })
+    );
+  }
 }
 
 export interface ServerResponse {

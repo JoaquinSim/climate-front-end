@@ -6,11 +6,7 @@
         <div class="tabla">
           <div class="field">
             <label for="city">Nombre de la ciudad:</label>
-            <input
-              pInputText
-              id="city"
-              formControlName="city"
-            />
+            <p-dropdown formControlName="city" [options]="cities" placeholder="Seleccione la ciudad"></p-dropdown>
           </div>
 
           <div class="field">
@@ -56,6 +52,7 @@
             >
             </p-inputNumber>
           </div>
+
 
           <div class="buttons">
             <p-button
