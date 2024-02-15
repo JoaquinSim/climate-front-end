@@ -17,9 +17,19 @@ export class ClimateComponent {
   climatesQ: any;
   climatesC: any;
   climatesG: any;
-  date = new Date()
+  date = new Date();
   day = this.date.toLocaleString('es-ES', { weekday: 'short' });
   dia = this.date.getDate();
+  img! : string;
+
+  dataQ: any;
+  optionsQ: any;
+
+  dataC: any;
+  optionsC: any;
+
+  dataG: any;
+  optionsG: any;
 
   month: string[] = [
     'Enero',
@@ -54,19 +64,11 @@ export class ClimateComponent {
     private auth: AuthGuard
   ) {
     this.authCheck();
-    this.findClimate()
+    this.findClimate();
 
-    this.tempQData();
-    this.humidityQData();
-    this.rainQData();
-
-    this.tempCData();
-    this.humidityCData();
-    this.rainCData();
-
-    this.tempGData();
-    this.humidityGData();
-    this.rainGData();
+    this.dataQuito();
+    this.dataCuenca();
+    this.dataGuayaquil();
   }
 
   login() {
@@ -86,396 +88,264 @@ export class ClimateComponent {
   }
 
   //Clima Quito
-  tempQData(): {} {
-    let month: string = '';
-    const dpsQ: any[] = [];
+  dataQuito() {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue(
+      '--text-color-secondary'
+    );
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    let temp: string[] = [];
+    let hum: string[] = [];
+    let fecha: Date;
+    let pre: string[] = []
+    let fechaFormateada: string[] = [];
     this.climateService.findClimates().subscribe((res) => {
       this.climates = res;
+      this.climates.reverse()
       this.climates.forEach((data) => {
-        var fecha = new Date(data.time);
-        for (let i = 0; i < this.month.length; i++) {
-          if (parseInt(data.time.substr(6, 1)) == i) {
-            month = this.month[i - 1];
-          }
-        }
-        var fechaFormateada = fecha.getDate();
         if (data.city === 'Quito') {
-          dpsQ.push({
-            x: fechaFormateada,
-            y: data.temperature,
-          });
-          this.tempQOptions = {
-            zoomEnabled: true,
-            exportEnabled: true,
-            axisY: {
-              title: 'Grados de temperatura C°',
-            },
-            theme: 'light2',
-            data: [
-              {
-                type: 'line',
-                xValueFormatString: 'MMM DD, YYYY',
-                name: 'Temperatura',
-                dataPoints: dpsQ,
-              },
-            ],
-            title: {
-              text: `Historico temperatura mes de ${month}`,
-            },
-          };
+          fecha = new Date(data.time);
+          fechaFormateada.push(JSON.stringify(fecha.getDate()));
+          temp.push(data.temperature);
+          hum.push(data.humidity);
+          pre.push(data.volumen);
         }
       });
+      this.dataQ = {
+        labels: fechaFormateada,
+        datasets: [
+          {
+            label: 'Temperatura',
+            data: temp,
+            fill: false,
+            borderColor: documentStyle.getPropertyValue('--blue-500'),
+            tension: 0.4,
+          },
+          {
+            label: 'Humedad',
+            data: hum,
+            fill: false,
+            borderColor: documentStyle.getPropertyValue('--pink-500'),
+            tension: 0.4,
+          },
+          {
+            label: 'Precipitación',
+            data: pre,
+            fill: false,
+            borderColor: documentStyle.getPropertyValue('--green-500'),
+            tension: 0.4,
+          },
+        ],
+      };
+      this.optionsQ = {
+        stacked: false,
+        maintainAspectRatio: false,
+        aspectRatio: 0.6,
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+        },
+      };
     });
-    return this.tempQOptions;
-  }
-
-  humidityQData() {
-    let month: string = '';
-    const hpsQ: any[] = [];
-    this.climateService.findClimates().subscribe((res) => {
-      this.climates = res;
-      this.climates.forEach((data) => {
-        var fecha = new Date(data.time);
-        for (let i = 0; i < this.month.length; i++) {
-          if (parseInt(data.time.substr(6, 1)) == i) {
-            month = this.month[i - 1];
-          }
-        }
-        var fechaFormateada = fecha.getDate();
-        if (data.city === 'Quito') {
-          hpsQ.push({
-            x: fechaFormateada,
-            y: data.humidity,
-          });
-          this.humidityQOptions = {
-            zoomEnabled: true,
-            exportEnabled: true,
-            axisY: {
-              title: 'Porcentaje de humedad %',
-            },
-            theme: 'light2',
-            data: [
-              {
-                type: 'line',
-                xValueFormatString: 'MMM DD, YYYY',
-                name: 'Porcentaje',
-                dataPoints: hpsQ,
-              },
-            ],
-            title: {
-              text: `Historico humedad mes de ${month}`,
-            },
-          };
-        }
-      });
-    });
-
-    return this.humidityQOptions;
-  }
-
-  rainQData() {
-    let month: string = '';
-    const rpsQ: any[] = [];
-    this.climateService.findClimates().subscribe((res) => {
-      this.climates = res;
-      this.climates.forEach((data) => {
-        var fecha = new Date(data.time);
-        for (let i = 0; i < this.month.length; i++) {
-          if (parseInt(data.time.substr(6, 1)) == i) {
-            month = this.month[i - 1];
-          }
-        }
-        var fechaFormateada = fecha.getDate();
-        if (data.city === 'Quito') {
-          rpsQ.push({
-            x: fechaFormateada,
-            y: data.temperature,
-          });
-          this.rainQOptions = {
-            zoomEnabled: true,
-            exportEnabled: true,
-            axisY: {
-              title: 'Grados de temperatura C°',
-            },
-            theme: 'light2',
-            data: [
-              {
-                type: 'line',
-                xValueFormatString: 'MMM DD, YYYY',
-                name: 'Temperatura',
-                dataPoints: rpsQ,
-              },
-            ],
-            title: {
-              text: `Historico precipitación mes de ${month}`,
-            },
-          };
-        }
-      });
-    });
-    return this.rainQOptions;
   }
 
   //Clima Cuenca
-  tempCData(): {} {
-    let month: string = '';
-    const dpsC: any[] = [];
+  dataCuenca() {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue(
+      '--text-color-secondary'
+    );
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    let temp: string[] = [];
+    let hum: string[] = [];
+    let fecha: Date;
+    let pre: string[] = []
+    let fechaFormateada: string[] = [];
     this.climateService.findClimates().subscribe((res) => {
       this.climates = res;
+      this.climates.reverse()
       this.climates.forEach((data) => {
-        var fecha = new Date(data.time);
-        for (let i = 0; i < this.month.length; i++) {
-          if (parseInt(data.time.substr(6, 1)) == i) {
-            month = this.month[i - 1];
-          }
-        }
-        var fechaFormateada = fecha.getDate();
         if (data.city === 'Cuenca') {
-          dpsC.push({
-            x: fechaFormateada,
-            y: data.temperature,
-          });
-          this.tempCOptions = {
-            zoomEnabled: true,
-            exportEnabled: true,
-            axisY: {
-              title: 'Grados de temperatura C°',
-            },
-            theme: 'light2',
-            data: [
-              {
-                type: 'line',
-                xValueFormatString: 'MMM DD, YYYY',
-                name: 'Temperatura',
-                dataPoints: dpsC,
-              },
-            ],
-            title: {
-              text: `Historico temperatura mes de ${month}`,
-            },
-          };
+          fecha = new Date(data.time);
+          fechaFormateada.push(JSON.stringify(fecha.getDate()));
+          temp.push(data.temperature);
+          hum.push(data.humidity);
+          pre.push(data.volumen);
         }
       });
+      this.dataC = {
+        labels: fechaFormateada,
+        datasets: [
+          {
+            label: 'Temperatura',
+            data: temp,
+            fill: false,
+            borderColor: documentStyle.getPropertyValue('--blue-500'),
+            tension: 0.4,
+          },
+          {
+            label: 'Humedad',
+            data: hum,
+            fill: false,
+            borderColor: documentStyle.getPropertyValue('--pink-500'),
+            tension: 0.4,
+          },
+          {
+            label: 'Precipitación',
+            data: pre,
+            fill: false,
+            borderColor: documentStyle.getPropertyValue('--green-500'),
+            tension: 0.4,
+          },
+        ],
+      };
+      this.optionsC = {
+        stacked: false,
+        maintainAspectRatio: false,
+        aspectRatio: 0.6,
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+        },
+      };
     });
-    return this.tempCOptions;
-  }
-
-  humidityCData() {
-    let month: string = '';
-    const hpsC: any[] = [];
-    this.climateService.findClimates().subscribe((res) => {
-      this.climates = res;
-      this.climates.forEach((data) => {
-        var fecha = new Date(data.time);
-        for (let i = 0; i < this.month.length; i++) {
-          if (parseInt(data.time.substr(6, 1)) == i) {
-            month = this.month[i - 1];
-          }
-        }
-        var fechaFormateada = fecha.getDate();
-        if (data.city === 'Cuenca') {
-          hpsC.push({
-            x: fechaFormateada,
-            y: data.humidity,
-          });
-          this.humidityCOptions = {
-            zoomEnabled: true,
-            exportEnabled: true,
-            axisY: {
-              title: 'Porcentaje de humedad %',
-            },
-            theme: 'light2',
-            data: [
-              {
-                type: 'line',
-                xValueFormatString: 'MMM DD, YYYY',
-                name: 'Porcentaje',
-                dataPoints: hpsC,
-              },
-            ],
-            title: {
-              text: `Historico humedad mes de ${month}`,
-            },
-          };
-        }
-      });
-    });
-
-    return this.humidityCOptions;
-  }
-
-  rainCData() {
-    let month: string = '';
-    const rpsC: any[] = [];
-    this.climateService.findClimates().subscribe((res) => {
-      this.climates = res;
-      this.climates.forEach((data) => {
-        var fecha = new Date(data.time);
-        for (let i = 0; i < this.month.length; i++) {
-          if (parseInt(data.time.substr(6, 1)) == i) {
-            month = this.month[i - 1];
-          }
-        }
-        var fechaFormateada = fecha.getDate();
-        if (data.city === 'Cuenca') {
-          rpsC.push({
-            x: fechaFormateada,
-            y: data.temperature,
-          });
-          this.rainCOptions = {
-            zoomEnabled: true,
-            exportEnabled: true,
-            axisY: {
-              title: 'Grados de temperatura C°',
-            },
-            theme: 'light2',
-            data: [
-              {
-                type: 'line',
-                xValueFormatString: 'MMM DD, YYYY',
-                name: 'Temperatura',
-                dataPoints: rpsC,
-              },
-            ],
-            title: {
-              text: `Historico Presipitaciones mes de ${month}`,
-            },
-          };
-        }
-      });
-    });
-    return this.rainCOptions;
   }
 
   //Clima guayaquil
-  tempGData(): {} {
-    let month: string = '';
-    const dpsG: any[] = [];
+  dataGuayaquil() {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue(
+      '--text-color-secondary'
+    );
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    let temp: string[] = [];
+    let hum: string[] = [];
+    let fecha: Date;
+    let pre: string[] = []
+    let fechaFormateada: string[] = [];
     this.climateService.findClimates().subscribe((res) => {
       this.climates = res;
+      this.climates.reverse()
       this.climates.forEach((data) => {
-        var fecha = new Date(data.time);
-        for (let i = 0; i < this.month.length; i++) {
-          if (parseInt(data.time.substr(6, 1)) == i) {
-            month = this.month[i - 1];
-          }
-        }
-        var fechaFormateada = fecha.getDate();
         if (data.city === 'Guayaquil') {
-          dpsG.push({
-            x: fechaFormateada,
-            y: data.temperature,
-          });
-          this.tempGOptions = {
-            zoomEnabled: true,
-            exportEnabled: true,
-            axisY: {
-              title: 'Grados de temperatura C°',
-            },
-            theme: 'light2',
-            data: [
-              {
-                type: 'line',
-                xValueFormatString: 'MMM DD, YYYY',
-                name: 'Temperatura',
-                dataPoints: dpsG,
-              },
-            ],
-            title: {
-              text: `Historico temperatura mes de ${month}`,
-            },
-          };
+          fecha = new Date(data.time);
+          fechaFormateada.push(JSON.stringify(fecha.getDate()));
+          temp.push(data.temperature);
+          hum.push(data.humidity);
+          pre.push(data.volumen);
         }
       });
+      this.dataG = {
+        labels: fechaFormateada,
+        datasets: [
+          {
+            label: 'Temperatura',
+            data: temp,
+            fill: false,
+            borderColor: documentStyle.getPropertyValue('--blue-500'),
+            tension: 0.4,
+          },
+          {
+            label: 'Humedad',
+            data: hum,
+            fill: false,
+            borderColor: documentStyle.getPropertyValue('--pink-500'),
+            tension: 0.4,
+          },
+          {
+            label: 'Precipitación',
+            data: pre,
+            fill: false,
+            borderColor: documentStyle.getPropertyValue('--green-500'),
+            tension: 0.4,
+          },
+        ],
+      };
+      this.optionsG = {
+        stacked: false,
+        maintainAspectRatio: false,
+        aspectRatio: 0.6,
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+        },
+      };
     });
-    return this.tempGOptions;
-  }
-
-  humidityGData() {
-    let month: string = '';
-    const hpsG: any[] = [];
-    this.climateService.findClimates().subscribe((res) => {
-      this.climates = res;
-      this.climates.forEach((data) => {
-        var fecha = new Date(data.time);
-        for (let i = 0; i < this.month.length; i++) {
-          if (parseInt(data.time.substr(6, 1)) == i) {
-            month = this.month[i - 1];
-          }
-        }
-        var fechaFormateada = fecha.getDate();
-        if (data.city === 'Guayaquil') {
-          hpsG.push({
-            x: fechaFormateada,
-            y: data.humidity,
-          });
-          this.humidityGOptions = {
-            zoomEnabled: true,
-            exportEnabled: true,
-            axisY: {
-              title: 'Porcentaje de humedad %',
-            },
-            theme: 'light2',
-            data: [
-              {
-                type: 'line',
-                xValueFormatString: 'MMM DD, YYYY',
-                name: 'Porcentaje',
-                dataPoints: hpsG,
-              },
-            ],
-            title: {
-              text: `Historico humedad mes de ${month}`,
-            },
-          };
-        }
-      });
-    });
-
-    return this.humidityGOptions;
-  }
-
-  rainGData() {
-    let month: string = '';
-    const rpsG: any[] = [];
-    this.climateService.findClimates().subscribe((res) => {
-      this.climates = res;
-      this.climates.forEach((data) => {
-        var fecha = new Date(data.time);
-        for (let i = 0; i < this.month.length; i++) {
-          if (parseInt(data.time.substr(6, 1)) == i) {
-            month = this.month[i - 1];
-          }
-        }
-        var fechaFormateada = fecha.getDate();
-        if (data.city === 'Guayaquil') {
-          rpsG.push({
-            x: fechaFormateada,
-            y: data.temperature,
-          });
-          this.rainGOptions = {
-            zoomEnabled: true,
-            exportEnabled: true,
-            axisY: {
-              title: 'Grados de temperatura C°',
-            },
-            theme: 'light2',
-            data: [
-              {
-                type: 'line',
-                xValueFormatString: 'MMM DD, YYYY',
-                name: 'Temperatura',
-                dataPoints: rpsG,
-              },
-            ],
-            title: {
-              text: `Historico Presipitaciones mes de ${month}`,
-            },
-          };
-        }
-      });
-    });
-    return this.rainGOptions;
   }
 
   findClimate() {
@@ -486,34 +356,40 @@ export class ClimateComponent {
     )
       .then((response) => response.json())
       .then((data) => {
+        data.rain = parseFloat(JSON.stringify(data.rain).substring(6, 10))
+        data.main.temp = data.main.temp - 273.15
+        if(data.main.temp > 24){
+          this.img = 'https://cdn-icons-png.flaticon.com/512/5367/5367718.png'
+        }else{
+          this.img = 'https://cdn.icon-icons.com/icons2/2211/PNG/512/weather_winter_cloud_cold_icon_134158.png'
+        }
         this.climatesQ = data;
-        console.log(this.climatesQ.main)
       });
 
-      fetch(
-        `    https://api.openweathermap.org/data/2.5/weather?q=${'Cuenca'}&appid=${
-          this.API_KEY
-        }`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          this.climatesC = data;
-        });
+    fetch(
+      `    https://api.openweathermap.org/data/2.5/weather?q=${'Cuenca'}&appid=${
+        this.API_KEY
+      }`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        data.main.temp = data.main.temp - 273.15
+        this.climatesC = data;
+      });
 
-
-        
-      fetch(
-        `    https://api.openweathermap.org/data/2.5/weather?q=${"Guayaquil"}&appid=${
-          this.API_KEY
-        }`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          this.climatesG = data;
-        });
+    fetch(
+      `    https://api.openweathermap.org/data/2.5/weather?q=${'Guayaquil'}&appid=${
+        this.API_KEY
+      }`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        data.main.temp = data.main.temp - 273.15
+        this.climatesG = data;
+      });
   }
 
-  saveClimate(city:string, file:string){
-    this.climateService.pdf(city, 'Clima actual')
+  saveClimate(city: string, file: string) {
+    this.climateService.pdf(city, 'Clima actual');
   }
 }

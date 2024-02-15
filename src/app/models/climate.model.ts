@@ -5,7 +5,7 @@ export interface ClimateModel {
     humidity: number;
     pressure?: number;
     velocity: number;
-    volumen?:number;
+    volumen?:any;
     time: any
   }
   

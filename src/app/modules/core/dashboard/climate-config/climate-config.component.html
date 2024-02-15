@@ -3,193 +3,250 @@
   <div>
     <p-tabView>
       <p-tabPanel header="Quio">
-        <div class="tab">
-          <p-table [value]="climateQ" class="climate">
-            <ng-template pTemplate="header" id="header">
-              <tr>
-                <th>
-                  <p-button
-                    (click)="crear(climateQ)"
-                    icon="pi pi-plus"
-                    severity="success"
-                  ></p-button>
-                  <p-button
-                  (click)="save('climates')"
-                  icon="pi pi-download"
-                  severity="info"
-                  ></p-button>
-                </th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Temperatura</th>
-                <th>Humedad</th>
-                <th>Presion atmosferica</th>
-                <th>Velocidad del viento</th>
-                <th>Acciones</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-item>
-              <tr>
-                <td></td>
-                <td>{{ item.time.substr(0, 10) }}</td>
-                <td>{{ item.time.substr(11, 8) }}</td>
-                <td>{{ item.temperature }} C°</td>
-                <td>{{ item.humidity }} %</td>
-                <td>{{ item.pressure }} mb</td>
-                <td>{{ item.velocity }} m/s</td>
-                <td>
-                  <p-button
-                    severity="danger"
-                    icon="pi pi-trash"
-                    (click)="deleteClimate(item.id)"
-                  ></p-button>
-                  <p-button
-                    severity="info"
-                    icon="pi pi-pencil"
-                    (click)="updateClimate(item.id)"
-                  ></p-button>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-          <p-table [value]="climatesQ" class="temp">
-            <ng-template pTemplate="body" let-item>
-              <tr>
-                <td>{{ item.name }}</td>
-                <td>
-                  {{ item.main.temp - 273.15 }} C°
-                  <span icon="pi-plus"></span>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
+        <p-tabView>
+          <p-tabPanel header="Enero">
+            <p>No hay datos existentes</p>
+          </p-tabPanel>
+          <p-tabPanel header="Febrero">
+            <p-splitter [panelSizes]="[80, 20]" styleClass="mb-5">
+              <ng-template pTemplate>
+                <div class="tab">
+                  <p-table [value]="climateQ" class="climate">
+                    <ng-template pTemplate="header" id="header">
+                      <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Temperatura</th>
+                        <th>Humedad</th>
+                        <th>Precipitación</th>
+                        <th>Presion atmosferica</th>
+                        <th>Velocidad del viento</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                      <tr>
+                        <td>{{ item.time.substr(0, 10) }}</td>
+                        <td>{{ item.time.substr(11, 8) }}</td>
+                        <td>{{ item.temperature }} C°</td>
+                        <td>{{ item.humidity }} %</td>
+                        <td>{{ item.volumen }} mm</td>
+                        <td>{{ item.pressure }} mb</td>
+                        <td>{{ item.velocity }} m/s</td>
+                        <td>
+                          <p-button
+                            severity="danger"
+                            icon="pi pi-trash"
+                            (click)="deleteClimate(item.id)"
+                          ></p-button>
+                          <p-button
+                            severity="info"
+                            icon="pi pi-pencil"
+                            (click)="updateClimate(item.id)"
+                          ></p-button>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </ng-template>
+              <ng-template pTemplate>
+                <p-table [value]="climatesQ">
+                  <ng-template pTemplate="body" let-item>
+                    <tr>
+                      <div></div>
+                      <p-button
+                        (click)="crear(climateQ)"
+                        icon="pi pi-plus"
+                        severity="success"
+                      ></p-button>
+                      <p-button
+                        (click)="save('climates')"
+                        icon="pi pi-download"
+                        severity="info"
+                      ></p-button>
+                    </tr>
+                    <br />
+                    <tr>
+                      <td>Humedad: {{ item.main.humidity }} %</td>
+                    </tr>
+                    <tr>
+                      <td>Temperatura: {{ item.main.temp - 273.15 }} C°</td>
+                    </tr>
+                    <tr>
+                      <td>Velocidad del viento: {{ item.wind.speed }} m/s</td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </ng-template>
+            </p-splitter>
+          </p-tabPanel>
+          <p-tabPanel header="Marzo" [disabled]="true"> </p-tabPanel>
+        </p-tabView>
       </p-tabPanel>
       <p-tabPanel header="Cuenca">
-        <div class="tab">
-          <p-table [value]="climateC" class="climate">
-            <ng-template pTemplate="header" id="header">
-              <tr>
-                <th>
-                  <p-button
-                    (click)="crear(climateC)"
-                    icon="pi pi-plus"
-                    severity="success"
-                  ></p-button>
-                  <p-button
-                  (click)="save('climates')"
-                  icon="pi pi-download"
-                  severity="info"
-                  ></p-button>
-                </th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Temperatura</th>
-                <th>Humedad</th>
-                <th>Presion atmosferica</th>
-                <th>Velocidad del viento</th>
-                <th>Acciones</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-item>
-              <tr>
-                <td></td>
-                <td>{{ item.time.substr(0, 10) }}</td>
-                <td>{{ item.time.substr(11, 8) }}</td>
-                <td>{{ item.temperature }} C°</td>
-                <td>{{ item.humidity }} %</td>
-                <td>{{ item.pressure }} mb</td>
-                <td>{{ item.velocity }} m/s</td>
-                <td>
-                  <p-button
-                    severity="danger"
-                    icon="pi pi-trash"
-                    (click)="deleteClimate(item.id)"
-                  ></p-button>
-                  <p-button
-                    severity="info"
-                    icon="pi pi-pencil"
-                    (click)="updateClimate(item.id)"
-                  ></p-button>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-          <p-table [value]="climatesC" class="temp">
-            <ng-template pTemplate="body" let-item>
-              <tr>
-                <td>{{ item.name }}</td>
-                <td>
-                  {{ item.main.temp - 273.15 }} C°
-                  <span icon="pi-plus"></span>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
+        <p-tabView>
+          <p-tabPanel header="Enero">
+            <p>No hay datos existentes</p>
+          </p-tabPanel>
+          <p-tabPanel header="Febrero">
+            <p-splitter [panelSizes]="[80, 20]" styleClass="mb-5">
+              <ng-template pTemplate>
+                <div class="tab">
+                  <p-table [value]="climateC" class="climate">
+                    <ng-template pTemplate="header" id="header">
+                      <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Temperatura</th>
+                        <th>Humedad</th>
+                        <th>Precipitación</th>
+                        <th>Presion atmosferica</th>
+                        <th>Velocidad del viento</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                      <tr>
+                        <td>{{ item.time.substr(0, 10) }}</td>
+                        <td>{{ item.time.substr(11, 8) }}</td>
+                        <td>{{ item.temperature }} C°</td>
+                        <td>{{ item.humidity }} %</td>
+                        <td>{{ item.volumen }} mm</td>
+                        <td>{{ item.pressure }} mb</td>
+                        <td>{{ item.velocity }} m/s</td>
+                        <td>
+                          <p-button
+                            severity="danger"
+                            icon="pi pi-trash"
+                            (click)="deleteClimate(item.id)"
+                          ></p-button>
+                          <p-button
+                            severity="info"
+                            icon="pi pi-pencil"
+                            (click)="updateClimate(item.id)"
+                          ></p-button>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </ng-template>
+              <ng-template pTemplate>
+                <p-table [value]="climatesC">
+                  <ng-template pTemplate="body" let-item>
+                    <tr>
+                      <div></div>
+                      <p-button
+                        (click)="crear(climateC)"
+                        icon="pi pi-plus"
+                        severity="success"
+                      ></p-button>
+                      <p-button
+                        (click)="save('climates')"
+                        icon="pi pi-download"
+                        severity="info"
+                      ></p-button>
+                    </tr>
+                    <br />
+                    <tr>
+                      <td>Humedad: {{ item.main.humidity }} %</td>
+                    </tr>
+                    <tr>
+                      <td>Temperatura: {{ item.main.temp - 273.15 }} C°</td>
+                    </tr>
+                    <tr>
+                      <td>Velocidad del viento: {{ item.wind.speed }} m/s</td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </ng-template>
+            </p-splitter>
+          </p-tabPanel>
+          <p-tabPanel header="Marzo" [disabled]="true"> </p-tabPanel>
+        </p-tabView>
       </p-tabPanel>
       <p-tabPanel header="Guayaquil">
-        <div class="tab">
-          <p-table [value]="climateY" class="climate">
-            <ng-template pTemplate="header" id="header">
-              <tr>
-                <th>
-                  <p-button
-                    (click)="crear(climateY)"
-                    icon="pi pi-plus"
-                    severity="success"
-                  ></p-button>
-                  <p-button
-                  (click)="save('climates')"
-                  icon="pi pi-download"
-                  severity="info"
-                  ></p-button>
-                </th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Temperatura</th>
-                <th>Humedad</th>
-                <th>Presion atmosferica</th>
-                <th>Velocidad del viento</th>
-                <th>Acciones</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-item>
-              <tr>
-                <td></td>
-                <td>{{ item.time.substr(0, 10) }}</td>
-                <td>{{ item.time.substr(11, 8) }}</td>
-                <td>{{ item.temperature }} C°</td>
-                <td>{{ item.humidity }} %</td>
-                <td>{{ item.pressure }} mb</td>
-                <td>{{ item.velocity }} m/s</td>
-                <td>
-                  <p-button
-                    severity="danger"
-                    icon="pi pi-trash"
-                    (click)="deleteClimate(item.id)"
-                  ></p-button>
-                  <p-button
-                    severity="info"
-                    icon="pi pi-pencil"
-                    (click)="updateClimate(item.id)"
-                  ></p-button>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-          <p-table [value]="climatesY" class="temp">
-            <ng-template pTemplate="body" let-item>
-              <tr>
-                <td>{{ item.name }}</td>
-                <td>
-                  {{ item.main.temp - 273.15 }} C°
-                  <span icon="pi-plus"></span>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
+        <p-tabView>
+          <p-tabPanel header="Enero">
+            <p>No hay datos existentes</p>
+          </p-tabPanel>
+          <p-tabPanel header="Febrero">
+            <p-splitter [panelSizes]="[80, 20]" styleClass="mb-5">
+              <ng-template pTemplate>
+                <div class="tab">
+                  <p-table [value]="climateG" class="climate">
+                    <ng-template pTemplate="header" id="header">
+                      <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Temperatura</th>
+                        <th>Humedad</th>
+                        <th>Precipitación</th>
+                        <th>Presion atmosferica</th>
+                        <th>Velocidad del viento</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                      <tr>
+                        <td>{{ item.time.substr(0, 10) }}</td>
+                        <td>{{ item.time.substr(11, 8) }}</td>
+                        <td>{{ item.temperature }} C°</td>
+                        <td>{{ item.humidity }} %</td>
+                        <td>{{ item.volumen }} mm</td>
+                        <td>{{ item.pressure }} mb</td>
+                        <td>{{ item.velocity }} m/s</td>
+                        <td>
+                          <p-button
+                            severity="danger"
+                            icon="pi pi-trash"
+                            (click)="deleteClimate(item.id)"
+                          ></p-button>
+                          <p-button
+                            severity="info"
+                            icon="pi pi-pencil"
+                            (click)="updateClimate(item.id)"
+                          ></p-button>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </ng-template>
+              <ng-template pTemplate>
+                <p-table [value]="climatesG">
+                  <ng-template pTemplate="body" let-item>
+                    <tr>
+                      <div></div>
+                      <p-button
+                        (click)="crear(climateG)"
+                        icon="pi pi-plus"
+                        severity="success"
+                      ></p-button>
+                      <p-button
+                        (click)="save('climates')"
+                        icon="pi pi-download"
+                        severity="info"
+                      ></p-button>
+                    </tr>
+                    <br />
+                    <tr>
+                      <td>Humedad: {{ item.main.humidity }} %</td>
+                    </tr>
+                    <tr>
+                      <td>Temperatura: {{ item.main.temp - 273.15 }} C°</td>
+                    </tr>
+                    <tr>
+                      <td>Velocidad del viento: {{ item.wind.speed }} m/s</td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </ng-template>
+            </p-splitter>
+          </p-tabPanel>
+          <p-tabPanel header="Marzo" [disabled]="true"> </p-tabPanel>
+        </p-tabView>
       </p-tabPanel>
     </p-tabView>
   </div>

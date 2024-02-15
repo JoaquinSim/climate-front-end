@@ -61,6 +61,7 @@ export class ClimateConfigFormComponent {
             velocity: data.wind.speed,
             pressure: data.main.pressure,
             time: new Date(),
+            //volumen: parseFloat((JSON.stringify(data.rain)).substr(6, 10))
           };
           //this.takeData(climate)
         }, 2000);
@@ -83,6 +84,7 @@ export class ClimateConfigFormComponent {
       velocity: climate.velocity,
       pressure: climate.pressure,
       time: new Date(),
+      volumen: climate.volumen
     };
     this.climateService.create(clima).subscribe((res) => {
       this.form.reset();
@@ -121,6 +123,7 @@ export class ClimateConfigFormComponent {
   }
 
   takeData(time: any) {
+
     const clima = {
       city: time.name,
       temperature: time.main.temp - 273.15,
@@ -128,9 +131,14 @@ export class ClimateConfigFormComponent {
       velocity: time.wind.speed,
       time: new Date(),
       pressure: time.main.pressure,
-      volumen: parseFloat(JSON.stringify(time.rain).substring(6, 10)),
+      volumen: time.rain,
     };
-    console.log(clima);
+    if(clima.volumen == undefined){
+      clima.volumen = 0.0
+    }else{
+      clima.volumen =  parseFloat((JSON.stringify(time.rain)).substr(6, 10))
+    };
+
     this.climateService.create(clima).subscribe((res) => {
       this.form.reset();
       this.close();

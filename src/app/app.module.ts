@@ -15,13 +15,21 @@ import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { ClimateConfigFormComponent } from './modules/core/dashboard/climate-config-form/climate-config-form.component';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { HeaderComponent } from './modules/core/dashboard/header/header.component';
 import { TabViewModule } from 'primeng/tabview';
 import { AccordionModule } from 'primeng/accordion';
 import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
-import { ListboxModule } from 'primeng/listbox';
+import { ChartModule } from 'primeng/chart';
+import { SplitterModule } from 'primeng/splitter';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToastModule } from 'primeng/toast';
+import { FieldsetModule } from 'primeng/fieldset';
+import { PanelModule } from 'primeng/panel';
+import { FormsModule } from '@angular/forms';
+import { ChipsModule } from 'primeng/chips';
+import { ImageModule } from 'primeng/image';
 
 @NgModule({
   declarations: [
@@ -44,12 +52,20 @@ import { ListboxModule } from 'primeng/listbox';
     TableModule,
     CardModule,
     InputNumberModule,
-    CanvasJSAngularChartsModule,
     TabViewModule,
     AccordionModule,
     DividerModule,
     DropdownModule,
-    ListboxModule
+    SplitterModule,
+    ChartModule,
+    ConfirmDialogModule,
+    InputSwitchModule,
+    ToastModule,
+    FieldsetModule,
+    PanelModule,
+    FormsModule,
+    ChipsModule,
+    ImageModule
   ],
   providers: [],
   bootstrap: [AppComponent],

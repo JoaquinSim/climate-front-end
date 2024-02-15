@@ -27,51 +27,76 @@
 <div class="main">
   <p-tabView>
     <p-tabPanel header="Quito">
+      <h1>Febrero</h1>
       <p-tabView>
         <p-tabPanel header="Historico">
           <div>
-            <div class="main__history">
-              <canvasjs-chart [options]="tempQOptions"></canvasjs-chart>
-              <p-divider></p-divider>
-            </div>
-            <p-divider></p-divider>
-            <div class="main__history">
-              <canvasjs-chart [options]="rainQOptions"></canvasjs-chart>
-            </div>
-            <p-divider></p-divider>
-            <div class="main__history">
-              <canvasjs-chart [options]="humidityQOptions"></canvasjs-chart>
-            </div>
-            <p-divider></p-divider>
+            <p-chart type="line" [data]="dataQ" [options]="optionsQ"></p-chart>
           </div>
         </p-tabPanel>
         <p-tabPanel header="Hoy">
-          <p>
-            {{ day }}<span> {{ dia }}</span>
-          </p>
-          <div class="card flex justify-content-center">
-            <p-card [style]="{ width: '30rem' }">
-              <ng-template pTemplate="header">
-                  <img alt="Card" src="https://images.vexels.com/media/users/3/205087/isolated/preview/a41d84a485d960a7d929fd95ece1acf1-icono-de-trazo-de-clima.png" />
-              </ng-template>
-              <ng-template pTemplate="body">
-                <p-accordion [multiple]="true" [activeIndex]="[0]">
-                  <p-accordionTab header="Temperatura C°">
-                    {{ climatesQ.main.temp - 273.15 }} C°
-                  </p-accordionTab>
-                  <p-accordionTab header="Precipitacion mm">
-                    {{ climatesQ.rain | json }} mm
-                  </p-accordionTab>
-                  <p-accordionTab header="Humedad %">
-                    {{ climatesQ.main.humidity }} %
-                  </p-accordionTab>
-                </p-accordion>
-              </ng-template>
-              <ng-template pTemplate="footer">
-                  <p-button icon="pi pi-download" (click)="saveClimate(climatesQ.name, 'climatesQ')"></p-button>
-              </ng-template>
-          </p-card>
-          </div>
+          <p-splitter [style]="{ height: '400px' }" styleClass="mb-5">
+            <ng-template pTemplate> 
+              <p-image src={{img}} alt="Image" width="250"></p-image>
+
+            </ng-template>
+            <ng-template pTemplate>
+              <p-panel header="{{ day }}-{{ dia }}">
+                <p-divider type="solid"></p-divider>
+                <label for="">Temperatura</label>
+                <p-inputNumber
+                  [(ngModel)]="climatesQ.main.temp"
+                  prefix="↑ "
+                  inputId="temperature"
+                  suffix=" ℃"
+                  [min]="0"
+                  [max]="40"
+                  [disabled]="true"
+                >
+                </p-inputNumber>
+                <p-divider type="solid"></p-divider>
+                <br />
+                <label for="">Precipitación</label>
+                <p-inputNumber
+                  [(ngModel)]="climatesQ.rain"
+                  inputId="mile"
+                  suffix=" mm"
+                  [disabled]="true"
+                >
+                </p-inputNumber>
+
+                <p-divider type="solid"></p-divider>
+                <br />
+                <label for="">Humedad</label>
+                <p-inputNumber
+                  inputId="percent"
+                  suffix=" %"
+                  [(ngModel)]="climatesQ.main.humidity"
+                  [disabled]="true"
+                ></p-inputNumber>
+
+                <p-divider type="solid"></p-divider>
+                <br />
+                <label for="">Presion atmosferica</label>
+                <p-inputNumber
+                  inputId="percent"
+                  suffix=" mb"
+                  [(ngModel)]="climatesQ.main.pressure"
+                  [disabled]="true"
+                ></p-inputNumber>
+
+                <p-divider type="solid"></p-divider>
+                <br />
+                <label for="">Velocidad del viento</label>
+                <p-inputNumber
+                  inputId="percent"
+                  suffix=" m/s"
+                  [(ngModel)]="climatesQ.wind.speed"
+                  [disabled]="true"
+                ></p-inputNumber>
+              </p-panel>
+            </ng-template>
+          </p-splitter>
         </p-tabPanel>
         <p-tabPanel header="Pronostico">
           <p>
@@ -87,21 +112,11 @@
       </p-tabView>
     </p-tabPanel>
     <p-tabPanel header="Guayaquil">
+      <h1>Febrero</h1>
       <p-tabView>
         <p-tabPanel header="Historico">
           <div>
-            <div class="main__history">
-              <canvasjs-chart [options]="tempGOptions"></canvasjs-chart>
-            </div>
-            <p-divider type="solid"></p-divider>
-            <div class="main__history">
-              <canvasjs-chart [options]="rainGOptions"></canvasjs-chart>
-            </div>
-            <p-divider type="solid"></p-divider>
-            <div class="main__history">
-              <canvasjs-chart [options]="humidityGOptions"></canvasjs-chart>
-            </div>
-            <p-divider type="solid"></p-divider>
+            <p-chart type="line" [data]="dataG" [options]="optionsG"></p-chart>
           </div>
         </p-tabPanel>
         <p-tabPanel header="Hoy">
@@ -111,7 +126,10 @@
           <div class="card flex justify-content-center">
             <p-card [style]="{ width: '30rem' }">
               <ng-template pTemplate="header">
-                  <img alt="Card" src="https://images.vexels.com/media/users/3/205087/isolated/preview/a41d84a485d960a7d929fd95ece1acf1-icono-de-trazo-de-clima.png" />
+                <img
+                  alt="Card"
+                  src="https://images.vexels.com/media/users/3/205087/isolated/preview/a41d84a485d960a7d929fd95ece1acf1-icono-de-trazo-de-clima.png"
+                />
               </ng-template>
               <ng-template pTemplate="body">
                 <p-accordion [multiple]="true" [activeIndex]="[0]">
@@ -127,9 +145,9 @@
                 </p-accordion>
               </ng-template>
               <ng-template pTemplate="footer">
-                  <p-button icon="pi pi-download"></p-button>
+                <p-button icon="pi pi-download"></p-button>
               </ng-template>
-          </p-card>
+            </p-card>
           </div>
         </p-tabPanel>
         <p-tabPanel header="Pronostico">
@@ -146,21 +164,11 @@
       </p-tabView>
     </p-tabPanel>
     <p-tabPanel header="Cuenca">
+      <h1>Febrero</h1>
       <p-tabView>
         <p-tabPanel header="Historico">
           <div>
-            <div class="main__history">
-              <canvasjs-chart [options]="tempCOptions"></canvasjs-chart>
-            </div><br>
-            <p-divider type="solid"></p-divider>
-            <div class="main__history">
-              <canvasjs-chart [options]="rainCOptions"></canvasjs-chart>
-            </div>
-            <p-divider type="solid"></p-divider>
-            <div class="main__history">
-              <canvasjs-chart [options]="humidityCOptions"></canvasjs-chart>
-            </div>
-            <p-divider type="solid"></p-divider>
+            <p-chart type="line" [data]="dataC" [options]="optionsC"></p-chart>
           </div>
         </p-tabPanel>
         <p-tabPanel header="Hoy">
@@ -170,7 +178,10 @@
           <div class="card flex justify-content-center">
             <p-card [style]="{ width: '30rem' }">
               <ng-template pTemplate="header">
-                  <img alt="Card" src="https://images.vexels.com/media/users/3/205087/isolated/preview/a41d84a485d960a7d929fd95ece1acf1-icono-de-trazo-de-clima.png" />
+                <img
+                  alt="Card"
+                  src="https://images.vexels.com/media/users/3/205087/isolated/preview/a41d84a485d960a7d929fd95ece1acf1-icono-de-trazo-de-clima.png"
+                />
               </ng-template>
               <ng-template pTemplate="body">
                 <p-accordion [multiple]="true" [activeIndex]="[0]">
@@ -186,9 +197,12 @@
                 </p-accordion>
               </ng-template>
               <ng-template pTemplate="footer">
-                  <p-button icon="pi pi-download" (click)="saveClimate(climatesC.name, 'climatesQ')"></p-button>
+                <p-button
+                  icon="pi pi-download"
+                  (click)="saveClimate(climatesC.name, 'climatesQ')"
+                ></p-button>
               </ng-template>
-          </p-card>
+            </p-card>
           </div>
         </p-tabPanel>
         <p-tabPanel header="Pronostico">
@@ -204,44 +218,5 @@
         </p-tabPanel>
       </p-tabView>
     </p-tabPanel>
-    <!-- <p-tabPanel header="Manta"> 
-      <p-tabView>
-        <p-tabPanel header="Historico">
-          <div>
-            <div class="main__history">
-              <canvasjs-chart [options]="tempCOptions"></canvasjs-chart>
-            </div>
-            <div class="main__history">
-              <canvasjs-chart [options]="rainCOptions"></canvasjs-chart>
-            </div>
-            <div class="main__history">
-              <canvasjs-chart [options]="humidityCOptions"></canvasjs-chart>
-            </div>
-          </div>
-        </p-tabPanel>
-        <p-tabPanel header="Hoy">
-          <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-            quae ab illo inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-            eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci
-            velit, sed quia non numquam eius modi.
-          </p>
-        </p-tabPanel>
-        <p-tabPanel header="Pronostico">
-          <p>
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui
-            blanditiis praesentium voluptatum deleniti atque corrupti quos
-            dolores et quas molestias excepturi sint occaecati cupiditate non
-            provident, similique sunt in culpa qui officia deserunt mollitia
-            animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis
-            est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-            eligendi optio cumque nihil impedit quo minus.
-          </p>
-        </p-tabPanel>
-      </p-tabView>
-    </p-tabPanel> -->
   </p-tabView>
 </div>
