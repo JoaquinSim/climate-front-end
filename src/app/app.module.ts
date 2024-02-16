@@ -30,6 +30,7 @@ import { PanelModule } from 'primeng/panel';
 import { FormsModule } from '@angular/forms';
 import { ChipsModule } from 'primeng/chips';
 import { ImageModule } from 'primeng/image';
+import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { ImageModule } from 'primeng/image';
     PanelModule,
     FormsModule,
     ChipsModule,
-    ImageModule
+    ImageModule,
+    TriStateCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -19,6 +19,7 @@ export class ClimateConfigFormComponent {
   time: any = new Date();
   cities: string[] = []
   city: any;
+
   API_TOKEN =
     'Qf9AHY-ewtEQ1UFgEXCvhBv1yEIzUUapjPLXm8qog-dAsnWL43kr_E9WeTTENXOnQQ4';
   API_KEY = '28c9a369f132111726aaa6aa34268128';

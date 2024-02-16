@@ -36,9 +36,8 @@
         </p-tabPanel>
         <p-tabPanel header="Hoy">
           <p-splitter [style]="{ height: '400px' }" styleClass="mb-5">
-            <ng-template pTemplate> 
-              <p-image src={{img}} alt="Image" width="250"></p-image>
-
+            <ng-template pTemplate>
+              <p-image src="{{ img }}" alt="Image" width="250"></p-image>
             </ng-template>
             <ng-template pTemplate>
               <p-panel header="{{ day }}-{{ dia }}">
@@ -99,15 +98,7 @@
           </p-splitter>
         </p-tabPanel>
         <p-tabPanel header="Pronostico">
-          <p>
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui
-            blanditiis praesentium voluptatum deleniti atque corrupti quos
-            dolores et quas molestias excepturi sint occaecati cupiditate non
-            provident, similique sunt in culpa qui officia deserunt mollitia
-            animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis
-            est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-            eligendi optio cumque nihil impedit quo minus.
-          </p>
+          <p>Pronostico deshabilitado</p>
         </p-tabPanel>
       </p-tabView>
     </p-tabPanel>
@@ -120,46 +111,70 @@
           </div>
         </p-tabPanel>
         <p-tabPanel header="Hoy">
-          <p>
-            {{ day }}<span> {{ dia }}</span>
-          </p>
-          <div class="card flex justify-content-center">
-            <p-card [style]="{ width: '30rem' }">
-              <ng-template pTemplate="header">
-                <img
-                  alt="Card"
-                  src="https://images.vexels.com/media/users/3/205087/isolated/preview/a41d84a485d960a7d929fd95ece1acf1-icono-de-trazo-de-clima.png"
-                />
-              </ng-template>
-              <ng-template pTemplate="body">
-                <p-accordion [multiple]="true" [activeIndex]="[0]">
-                  <p-accordionTab header="Temperatura C°">
-                    {{ climatesG.main.temp - 273.15 }} C°
-                  </p-accordionTab>
-                  <p-accordionTab header="Precipitacion mm">
-                    {{ climatesG.rain | json }} mm
-                  </p-accordionTab>
-                  <p-accordionTab header="Humedad %">
-                    {{ climatesG.main.humidity }} %
-                  </p-accordionTab>
-                </p-accordion>
-              </ng-template>
-              <ng-template pTemplate="footer">
-                <p-button icon="pi pi-download"></p-button>
-              </ng-template>
-            </p-card>
-          </div>
+          <p-splitter [style]="{ height: '400px' }" styleClass="mb-5">
+            <ng-template pTemplate>
+              <p-image src="{{ img }}" alt="Image" width="250"></p-image>
+            </ng-template>
+            <ng-template pTemplate>
+              <p-panel header="{{ day }}-{{ dia }}">
+                <p-divider type="solid"></p-divider>
+                <label for="">Temperatura</label>
+                <p-inputNumber
+                  [(ngModel)]="climatesG.main.temp"
+                  prefix="↑ "
+                  inputId="temperature"
+                  suffix=" ℃"
+                  [min]="0"
+                  [max]="40"
+                  [disabled]="true"
+                >
+                </p-inputNumber>
+                <p-divider type="solid"></p-divider>
+                <br />
+                <label for="">Precipitación</label>
+                <p-inputNumber
+                  [(ngModel)]="climatesG.rain"
+                  inputId="mile"
+                  suffix=" mm"
+                  [disabled]="true"
+                >
+                </p-inputNumber>
+
+                <p-divider type="solid"></p-divider>
+                <br />
+                <label for="">Humedad</label>
+                <p-inputNumber
+                  inputId="percent"
+                  suffix=" %"
+                  [(ngModel)]="climatesG.main.humidity"
+                  [disabled]="true"
+                ></p-inputNumber>
+
+                <p-divider type="solid"></p-divider>
+                <br />
+                <label for="">Presion atmosferica</label>
+                <p-inputNumber
+                  inputId="percent"
+                  suffix=" mb"
+                  [(ngModel)]="climatesG.main.pressure"
+                  [disabled]="true"
+                ></p-inputNumber>
+
+                <p-divider type="solid"></p-divider>
+                <br />
+                <label for="">Velocidad del viento</label>
+                <p-inputNumber
+                  inputId="percent"
+                  suffix=" m/s"
+                  [(ngModel)]="climatesG.wind.speed"
+                  [disabled]="true"
+                ></p-inputNumber>
+              </p-panel>
+            </ng-template>
+          </p-splitter>
         </p-tabPanel>
         <p-tabPanel header="Pronostico">
-          <p>
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui
-            blanditiis praesentium voluptatum deleniti atque corrupti quos
-            dolores et quas molestias excepturi sint occaecati cupiditate non
-            provident, similique sunt in culpa qui officia deserunt mollitia
-            animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis
-            est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-            eligendi optio cumque nihil impedit quo minus.
-          </p>
+          <p>Pronostico deshabilitado</p>
         </p-tabPanel>
       </p-tabView>
     </p-tabPanel>
@@ -172,49 +187,70 @@
           </div>
         </p-tabPanel>
         <p-tabPanel header="Hoy">
-          <p>
-            {{ day }}<span> {{ dia }}</span>
-          </p>
-          <div class="card flex justify-content-center">
-            <p-card [style]="{ width: '30rem' }">
-              <ng-template pTemplate="header">
-                <img
-                  alt="Card"
-                  src="https://images.vexels.com/media/users/3/205087/isolated/preview/a41d84a485d960a7d929fd95ece1acf1-icono-de-trazo-de-clima.png"
-                />
-              </ng-template>
-              <ng-template pTemplate="body">
-                <p-accordion [multiple]="true" [activeIndex]="[0]">
-                  <p-accordionTab header="Temperatura C°">
-                    {{ climatesC.main.temp - 273.15 }} C°
-                  </p-accordionTab>
-                  <p-accordionTab header="Precipitacion mm">
-                    {{ climatesC.rain | json }} mm
-                  </p-accordionTab>
-                  <p-accordionTab header="Humedad %">
-                    {{ climatesC.main.humidity }} %
-                  </p-accordionTab>
-                </p-accordion>
-              </ng-template>
-              <ng-template pTemplate="footer">
-                <p-button
-                  icon="pi pi-download"
-                  (click)="saveClimate(climatesC.name, 'climatesQ')"
-                ></p-button>
-              </ng-template>
-            </p-card>
-          </div>
+          <p-splitter [style]="{ height: '400px' }" styleClass="mb-5">
+            <ng-template pTemplate>
+              <p-image src="{{ img }}" alt="Image" width="250"></p-image>
+            </ng-template>
+            <ng-template pTemplate>
+              <p-panel header="{{ day }}-{{ dia }}">
+                <p-divider type="solid"></p-divider>
+                <label for="">Temperatura</label>
+                <p-inputNumber
+                  [(ngModel)]="climatesC.main.temp"
+                  prefix="↑ "
+                  inputId="temperature"
+                  suffix=" ℃"
+                  [min]="0"
+                  [max]="40"
+                  [disabled]="true"
+                >
+                </p-inputNumber>
+                <p-divider type="solid"></p-divider>
+                <br />
+                <label for="">Precipitación</label>
+                <p-inputNumber
+                  [(ngModel)]="climatesC.rain"
+                  inputId="mile"
+                  suffix=" mm"
+                  [disabled]="true"
+                >
+                </p-inputNumber>
+
+                <p-divider type="solid"></p-divider>
+                <br />
+                <label for="">Humedad</label>
+                <p-inputNumber
+                  inputId="percent"
+                  suffix=" %"
+                  [(ngModel)]="climatesC.main.humidity"
+                  [disabled]="true"
+                ></p-inputNumber>
+
+                <p-divider type="solid"></p-divider>
+                <br />
+                <label for="">Presion atmosferica</label>
+                <p-inputNumber
+                  inputId="percent"
+                  suffix=" mb"
+                  [(ngModel)]="climatesC.main.pressure"
+                  [disabled]="true"
+                ></p-inputNumber>
+
+                <p-divider type="solid"></p-divider>
+                <br />
+                <label for="">Velocidad del viento</label>
+                <p-inputNumber
+                  inputId="percent"
+                  suffix=" m/s"
+                  [(ngModel)]="climatesC.wind.speed"
+                  [disabled]="true"
+                ></p-inputNumber>
+              </p-panel>
+            </ng-template>
+          </p-splitter>
         </p-tabPanel>
         <p-tabPanel header="Pronostico">
-          <p>
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui
-            blanditiis praesentium voluptatum deleniti atque corrupti quos
-            dolores et quas molestias excepturi sint occaecati cupiditate non
-            provident, similique sunt in culpa qui officia deserunt mollitia
-            animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis
-            est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-            eligendi optio cumque nihil impedit quo minus.
-          </p>
+          <p>Pronostico deshabilitado</p>
         </p-tabPanel>
       </p-tabView>
     </p-tabPanel>

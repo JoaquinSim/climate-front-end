@@ -21,6 +21,7 @@ export class ClimateConfigComponent {
   climatesC: any[] = [];
   climateG: ClimateModel[] = [];
   climatesG: any[] = [];
+  checked: boolean = false;
   time?: Date;
 
   API_KEY = '28c9a369f132111726aaa6aa34268128';
@@ -121,6 +122,15 @@ export class ClimateConfigComponent {
       localStorage.setItem('city', JSON.stringify(element.city));
     });
     this.router.navigate(['dashboard/climate-form']);
+  }
+
+  auto(check: boolean){
+    this.checked = check;
+    let activate = {
+      activate: check
+    }
+    this.climateService.auto(activate).subscribe((res)=>{ 
+    })
   }
 
   save(file: string) {

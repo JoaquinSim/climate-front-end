@@ -105,6 +105,16 @@ export class ClimateService {
       })
     );
   }
+
+  auto(payload: any){
+    const url = `${this.URL}/auto`;
+
+    return this.httpClient.post<any>(url, payload).pipe(
+      map((response) => {
+        return response.data;
+      })
+    );
+  }
 }
 
 export interface ServerResponse {

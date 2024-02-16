@@ -356,13 +356,17 @@ export class ClimateComponent {
     )
       .then((response) => response.json())
       .then((data) => {
-        data.rain = parseFloat(JSON.stringify(data.rain).substring(6, 10))
+        if(data.rain == undefined){
+          data.rain = 0.0
+        }else{
+          data.rain = parseFloat(JSON.stringify(data.rain).substring(6, 10))
+        };
         data.main.temp = data.main.temp - 273.15
         if(data.main.temp > 24){
           this.img = 'https://cdn-icons-png.flaticon.com/512/5367/5367718.png'
         }else{
           this.img = 'https://cdn.icon-icons.com/icons2/2211/PNG/512/weather_winter_cloud_cold_icon_134158.png'
-        }
+        };
         this.climatesQ = data;
       });
 
@@ -373,7 +377,17 @@ export class ClimateComponent {
     )
       .then((response) => response.json())
       .then((data) => {
+        if(data.rain == undefined){
+          data.rain = 0.0
+        }else{
+          data.rain = parseFloat(JSON.stringify(data.rain).substring(6, 10))
+        };
         data.main.temp = data.main.temp - 273.15
+        if(data.main.temp > 24){
+          this.img = 'https://cdn-icons-png.flaticon.com/512/5367/5367718.png'
+        }else{
+          this.img = 'https://cdn.icon-icons.com/icons2/2211/PNG/512/weather_winter_cloud_cold_icon_134158.png'
+        };
         this.climatesC = data;
       });
 
@@ -384,7 +398,17 @@ export class ClimateComponent {
     )
       .then((response) => response.json())
       .then((data) => {
+        if(data.rain == undefined){
+          data.rain = 0.0
+        }else{
+          data.rain = parseFloat(JSON.stringify(data.rain).substring(6, 10))
+        };
         data.main.temp = data.main.temp - 273.15
+        if(data.main.temp > 24){
+          this.img = 'https://cdn-icons-png.flaticon.com/512/5367/5367718.png'
+        }else{
+          this.img = 'https://cdn.icon-icons.com/icons2/2211/PNG/512/weather_winter_cloud_cold_icon_134158.png'
+        };
         this.climatesG = data;
       });
   }

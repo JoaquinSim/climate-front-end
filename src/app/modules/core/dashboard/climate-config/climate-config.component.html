@@ -1,6 +1,11 @@
 <app-header></app-header>
 <div class="main">
   <div>
+    <div class="card flex justify-content-center">
+      <label for="">Tomar datos automaticamente </label>
+      <p-triStateCheckbox [(ngModel)]="checked" inputId="tricheckbox" (click)="auto(checked)"></p-triStateCheckbox>
+
+  </div>
     <p-tabView>
       <p-tabPanel header="Quio">
         <p-tabView>
